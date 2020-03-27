@@ -28,6 +28,45 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
+        document.querySelector('button').addEventListener('click', function() {
+            var AudioContext = window.AudioContext || window.webkitAudioContext;
+            var audioCtx = new AudioContext();
+          
+            // create Oscillator and gain node
+            var oscillator = audioCtx.createOscillator();
+            var gainNode = audioCtx.createGain();
+          
+            // connect oscillator to gain node to speakers
+          
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+          
+            // create initial theremin frequency and volumn values
+          
+            var WIDTH = window.innerWidth;
+            var HEIGHT = window.innerHeight;
+          
+            var maxFreq = 6000;
+            var maxVol = 0.02;
+          
+            var initialFreq = 440;
+            var initialVol = 0.015;
+          
+            // set options for the oscillator
+          
+          
+            oscillator.detune.value = 100; // value in cents
+            oscillator.start(0);
+          
+            oscillator.onended = function() {
+              console.log('Your tone has now stopped playing!');
+            };
+          
+            gainNode.gain.value = initialVol;
+            gainNode.gain.minValue = initialVol;
+            gainNode.gain.maxValue = initialVol;
+          
+        });
     },
 
     // Update DOM on a Received Event
