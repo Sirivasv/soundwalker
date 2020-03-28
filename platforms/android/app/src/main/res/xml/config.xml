@@ -1,8 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="top.sirv.soundwalker" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="top.sirv.soundwalker" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="Whitelist">
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
+    </feature>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+        <param name="onload" value="true" />
+    </feature>
+    <allow-navigation href="cdvfile:*" />
+    <feature name="Media">
+        <param name="android-package" value="org.apache.cordova.media.AudioHandler" />
     </feature>
     <name>SoundWalker</name>
     <description>
@@ -20,6 +28,16 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <allow-intent href="market:*" />
+    <config-file parent="/manifest" target="AndroidManifest.xml">
+        <uses-permission android:name="android.permission.AUDIO_CAPTURE" />
+        <uses-permission android:name="android.permission.CAMERA" />
+        <uses-permission android:name="android.permission.RECORD_AUDIO" />
+        <uses-permission android:name="android.permission.MICROPHONE" />
+        <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+        <uses-feature android:name="android.hardware.audio.low_latency" />
+        <uses-feature android:name="android.hardware.audio.pro" />
+        <uses-feature android:name="android.hardware.microphone" />
+    </config-file>
     <preference name="loglevel" value="DEBUG" />
     <preference name="android-minSdkVersion" value="21" />
     <preference name="android-targetSdkVersion" value="28" />
